@@ -124,7 +124,6 @@ mean(degree(elegans)) / length(V(elegans))
 
 # This is much smaller, therefore we conclude that this should be closest to a Small world model.
 
-
 # --- 5 ---
 
 # Create graph:
@@ -136,6 +135,7 @@ graph_5 <- add_edges(graph_5, c(1,2, 1,4, 1,5, 1,6, 2,3))
 # Probability of attachment
 
 attachm_prob <- function(graph){
+  
   n_nodes = vcount(graph)
   probs = c(1:n_nodes)
   
@@ -149,6 +149,7 @@ attachm_prob <- function(graph){
 # Interval creation
 
 cr_interval <- function(graph,probs){
+  
   n_nodes = vcount(graph)
   interval = c(1:n_nodes)
   
