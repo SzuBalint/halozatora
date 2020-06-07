@@ -56,7 +56,7 @@ In this section I will analyse the network of restaurants around Deak Ferenc ter
 
 Our network has 125 nodes (or restaurants) and 3643 connections (edges) between them.
 
-After we take a look at the restaurants, let's take a deeper look on our network. At first sight, we can already see that our network has 3 main parts, but other than that, it look quite connected. More preciesly, using the transitivity function, we can see that our network's value is really high (0.835199), which means, it is in fact connected. This comes as no suprise, restaurants mostly share basic characteristics, but still interesting how connected it is.
+After we take a look at the restaurants, let's take a deeper look on our network. At first sight, we can already see that our network has 3 main parts, but other than that, it looks quite connected. More preciesly, using the transitivity function, we can see that our network's value is really high (0.835199), which means, it is in fact connected. This comes as no suprise, restaurants mostly share basic characteristics, but still interesting how connected it is.
 
 Taking another look on the degree distribution we can see, that most nodes are connected to >20 other nodes, and even the strength of the graph is fairly high. Lastly the Kamada Kawai plot shows us, that the main hubs of our network are the ones in the middle.
 
@@ -130,6 +130,8 @@ Previously we saw that our graph could be broken down into 3 main communities. I
 We can see that both our degree and degree strenght distribution plots moved to the right, telling a similiar story we excepted, that this community is more connected with stronger connections, than our previous one. 
 
 Finally the 3 main characteristics of these restaurants are *drumm roll*:
+
+* Seating
 * Lunch available
 * Dinner available
 * Alcohol available
@@ -247,11 +249,11 @@ mergeGroupRating <- function(path) {
 }
 ```
 
-Individual recommendation
+### Individual recommendation
 
-For the individual the logic if fairly simple. First we sort for those restaurants that our user already rated, and take their average rating. We then subtract the average from each rating (normalising to 1), therefore the results will lean toward restaurants they found outstanding, and punish those that they disliked. After that we multiply the new rating score with the edge weights, giving us a new score, which now reflects both their preference and the similarities between those restaurants. Finally, we sort the and rank them by this new number.
+The individual recommandation is fairly simple. First we sort for those restaurants that our user already rated, and take their average rating. We then subtract the average from each rating (normalising to 1), therefore the results will lean toward restaurants they found outstanding, and punish those that they disliked. After that, we multiply the new rating score with the edge weights, giving us a new score, which now reflects both their preference and the similarities between those restaurants. Finally, we sort them and rank them by this new number.
 
-Unfortunetly I could not create a collaborative recommendation system as it would have required user data, which I could not get. I asked a few of my friends, and I thought about scraping Google places, but thos did not work out properly.
+Unfortunetly I could not create a collaborative recommendation system as it would have required user data, which I could not get. I asked a few of my friends, and I thought about scraping Google places, but those did not work out properly.
 
 ```{r}
 # '''
@@ -297,7 +299,7 @@ getUserRec <- function(user_rating, weights){
 }
 ```
 
-Test it yourself: A blank rating file can be found in 'data/Empty_Ratings.xlsx'
+Test it yourself: A blank rating file can be found in 'data/Empty_Ratings.xlsx', then run the code bellow from the .Rmd file
 
 ```{r}
 #Recommending restaurant, by a user's ratings
@@ -307,7 +309,7 @@ Test it yourself: A blank rating file can be found in 'data/Empty_Ratings.xlsx'
 # head(enyem$Second)
 ```
 
-Team recommendation
+### Team recommendation
 
 Finally we might want to eat or go out together. In this case, we can use the same logic as before and then vote a winner. Because our system usually votes for most restaurants I use a similiar voting system as the Borda voting. 
 
@@ -350,7 +352,7 @@ getTeamRec <- function(ratingDF, rest_weight) {
 
 Sample team, also known as: me and my friends and a few random guys from Google places:
 
-<em>At last, I can recommend a few places</em>
+# <em>At last, I can recommend a few places</em>
 
 ```{r}
 team <- mergeGroupRating("data/Group")
@@ -360,3 +362,4 @@ tht <- getTeamRec(team, rest_weight)
 head(tht)
 ```
 
+Asking my friends for feedback, the results were fairly convincing, but unfortunetly right now it is not possible to explore these places. Altough, in the coming weeks I will test this recommendation logic and see for myself if it truly works.
